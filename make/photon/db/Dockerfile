@@ -1,6 +1,8 @@
-ARG harbor_base_image_version
-ARG harbor_base_namespace
-FROM ${harbor_base_namespace}/harbor-db-base:${harbor_base_image_version}
+#ARG harbor_base_image_version
+#ARG harbor_base_namespace
+#FROM ${harbor_base_namespace}/harbor-db-base:${harbor_base_image_version}
+
+FROM postgres:12.22
 
 VOLUME /var/lib/postgresql/data
 
@@ -13,7 +15,7 @@ RUN chown -R postgres:postgres /docker-entrypoint.sh /initdb.sh /upgrade.sh \
     /docker-healthcheck.sh /docker-entrypoint-initdb.d \
     && chmod u+x /initdb.sh /upgrade.sh /docker-entrypoint.sh /docker-healthcheck.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh", "14", "15"]
+ENTRYPOINT ["/docker-entrypoint.sh", "", "12"]
 HEALTHCHECK CMD ["/docker-healthcheck.sh"]
 
 USER postgres
